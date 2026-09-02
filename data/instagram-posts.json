@@ -8,10 +8,11 @@
     "permalink": "https://www.instagram.com/p/DcvS0HWl_ur/",
     "like_count": 26,
     "comments_count": 6,
-    "reach": 1194,
+    "reach": 1218,
     "saved": 0,
     "shares": 0,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "17955278373232367",
@@ -22,10 +23,11 @@
     "permalink": "https://www.instagram.com/p/DcvSsgFmOfY/",
     "like_count": 20,
     "comments_count": 4,
-    "reach": 886,
+    "reach": 896,
     "saved": 0,
     "shares": 9,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "18099054110033142",
@@ -36,10 +38,11 @@
     "permalink": "https://www.instagram.com/p/DcvE21AAYMo/",
     "like_count": 107,
     "comments_count": 5,
-    "reach": 2079,
+    "reach": 2093,
     "saved": 9,
-    "shares": 25,
-    "plays": null
+    "shares": 26,
+    "plays": null,
+    "follows": 3
   },
   {
     "id": "18076648613388478",
@@ -50,10 +53,11 @@
     "permalink": "https://www.instagram.com/p/DcshDOCG2cR/",
     "like_count": 51,
     "comments_count": 130,
-    "reach": 8621,
+    "reach": 8630,
     "saved": 30,
     "shares": 21,
-    "plays": null
+    "plays": null,
+    "follows": 27
   },
   {
     "id": "18121635241895665",
@@ -64,10 +68,11 @@
     "permalink": "https://www.instagram.com/p/DckfV7FzukQ/",
     "like_count": 21,
     "comments_count": 0,
-    "reach": 2019,
+    "reach": 2022,
     "saved": 2,
     "shares": 0,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "17989022481031042",
@@ -81,7 +86,8 @@
     "reach": 9608,
     "saved": 10,
     "shares": 2,
-    "plays": null
+    "plays": null,
+    "follows": 11
   },
   {
     "id": "18183824860410532",
@@ -92,10 +98,11 @@
     "permalink": "https://www.instagram.com/p/Dcf-zyUG7Pt/",
     "like_count": 80,
     "comments_count": 1,
-    "reach": 1704,
+    "reach": 1707,
     "saved": 1,
     "shares": 37,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "18193327906380190",
@@ -109,7 +116,8 @@
     "reach": 5154,
     "saved": 87,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18544612951074021",
@@ -123,7 +131,8 @@
     "reach": 2594,
     "saved": 36,
     "shares": 14,
-    "plays": null
+    "plays": null,
+    "follows": 9
   },
   {
     "id": "18113660215770303",
@@ -137,7 +146,8 @@
     "reach": 3764,
     "saved": 37,
     "shares": 139,
-    "plays": null
+    "plays": null,
+    "follows": 122
   },
   {
     "id": "18124761124705583",
@@ -151,7 +161,8 @@
     "reach": 4785,
     "saved": 5,
     "shares": 5,
-    "plays": null
+    "plays": null,
+    "follows": 1
   },
   {
     "id": "18127814323599690",
@@ -162,10 +173,11 @@
     "permalink": "https://www.instagram.com/reel/DcNklJUzYiz/",
     "like_count": 64,
     "comments_count": 0,
-    "reach": 2243,
+    "reach": 2246,
     "saved": 3,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18186855535397409",
@@ -179,7 +191,8 @@
     "reach": 22519,
     "saved": 85,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "17951097624246844",
@@ -193,7 +206,8 @@
     "reach": 1458,
     "saved": 2,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18116335270901211",
@@ -207,7 +221,8 @@
     "reach": 2645,
     "saved": 1,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18013921871926342",
@@ -221,7 +236,8 @@
     "reach": 2484,
     "saved": 1,
     "shares": 21,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "18073577417711794",
@@ -235,7 +251,8 @@
     "reach": 2181,
     "saved": 4,
     "shares": 17,
-    "plays": null
+    "plays": null,
+    "follows": 0
   },
   {
     "id": "18024390326688317",
@@ -249,7 +266,8 @@
     "reach": 2347,
     "saved": 0,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "17981698175878616",
@@ -263,7 +281,8 @@
     "reach": 1749,
     "saved": 3,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18612902383044238",
@@ -277,7 +296,8 @@
     "reach": 1476,
     "saved": 0,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18103491557230281",
@@ -291,7 +311,8 @@
     "reach": 2104,
     "saved": 11,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18365144482240308",
@@ -305,7 +326,8 @@
     "reach": 2213,
     "saved": 1,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "17978094183096705",
@@ -319,7 +341,8 @@
     "reach": 3211,
     "saved": 2,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18081901805664020",
@@ -333,7 +356,8 @@
     "reach": 2670,
     "saved": 2,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18435095050132173",
@@ -347,7 +371,8 @@
     "reach": 3235,
     "saved": 0,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   },
   {
     "id": "18103862339184560",
@@ -361,6 +386,7 @@
     "reach": 2738,
     "saved": 3,
     "shares": null,
-    "plays": null
+    "plays": null,
+    "follows": null
   }
 ]
