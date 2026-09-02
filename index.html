@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>브랜드 인스타그램 대쉬보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root {
+    --ink: #14161c;
+    --ink-soft: #4b4f5a;
+    --paper: #f6f5f2;
+    --surface: #ffffff;
+    --line: #e4e2dc;
+    --accent-1: #e1306c;
+    --accent-2: #f77737;
+    --accent-grad: linear-gradient(120deg, #833ab4 0%, #e1306c 45%, #f77737 100%);
+    --up: #1f8a4c;
+    --down: #c23a3a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  header.top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  header.top h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  #account-label {
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  #last-updated {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 720px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+  }
+
+  .stat-card .label {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .stat-card .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+  }
+
+  .stat-card.hero .value {
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 32px;
+  }
+
+  .stat-card .delta {
+    font-size: 12.5px;
+    margin-top: 6px;
+  }
+
+  .delta.up { color: var(--up); }
+  .delta.down { color: var(--down); }
+  .delta.flat { color: var(--ink-soft); }
+
+  section {
+    margin-bottom: 44px;
+  }
+
+  section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    height: 320px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    text-align: left;
+    padding: 12px 14px;
+    background: #efeee9;
+    color: var(--ink-soft);
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  thead th.active { color: var(--ink); }
+
+  thead th .arrow { font-size: 11px; margin-left: 3px; opacity: 0.6; }
+
+  tbody td {
+    padding: 12px 14px;
+    border-top: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: #fbfaf8; }
+
+  .post-caption {
+    max-width: 280px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .post-caption:hover { text-decoration: underline; }
+
+  .post-type {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #efeee9;
+    color: var(--ink-soft);
+  }
+
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .empty-state {
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 28px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  footer {
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <h1>브랜드 인스타그램 대쉬보드</h1>
+        <div id="account-label">불러오는 중...</div>
+      </div>
+      <div id="last-updated"></div>
+    </header>
+
+    <div class="stat-grid" id="stat-grid"></div>
+
+    <section>
+      <h2>팔로워 추이</h2>
+      <div class="chart-card"><canvas id="follower-chart"></canvas></div>
+    </section>
+
+    <section>
+      <h2>최근 30일 게시물 실적</h2>
+      <div id="posts-table-wrap"></div>
+    </section>
+
+    <footer>data/instagram-metrics.json · data/instagram-posts.json 기반 · 매일 자동 갱신</footer>
+  </div>
+
+<script>
+const numberFmt = new Intl.NumberFormat('ko-KR');
+
+function fmt(n) {
+  if (n === null || n === undefined) return '—';
+  return numberFmt.format(n);
+}
+
+function pctDelta(curr, prev) {
+  if (prev === null || prev === undefined || prev === 0 || curr === null || curr === undefined) return null;
+  return ((curr - prev) / prev) * 100;
+}
+
+function deltaHtml(curr, prev) {
+  const d = pctDelta(curr, prev);
+  if (d === null) return '';
+  const cls = d > 0.05 ? 'up' : d < -0.05 ? 'down' : 'flat';
+  const sign = d > 0 ? '+' : '';
+  return `<div class="delta ${cls}">${sign}${d.toFixed(1)}% (전일 대비)</div>`;
+}
+
+async function loadJson(path) {
+  try {
+    const res = await fetch(path);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+function renderStats(metrics) {
+  const grid = document.getElementById('stat-grid');
+  if (!metrics || metrics.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">
+      아직 데이터가 없어요. GitHub Actions 워크플로우가 처음 실행되면 여기 지표가 채워집니다.
+    </div>`;
+    return;
+  }
+
+  const latest = metrics[metrics.length - 1];
+  const prev = metrics.length > 1 ? metrics[metrics.length - 2] : null;
+
+  document.getElementById('account-label').textContent = latest.username ? `@${latest.username}` : '';
+  document.getElementById('last-updated').textContent = `최근 업데이트: ${latest.date}`;
+
+  const cards = [
+    { key: 'followers_count', label: '팔로워 수', hero: true },
+    { key: 'reach', label: '도달 (일간)' },
+    { key: 'profile_views', label: '프로필 조회수' },
+    { key: 'accounts_engaged', label: '참여 계정 수' },
+  ];
+
+  grid.innerHTML = cards.map(c => `
+    <div class="stat-card ${c.hero ? 'hero' : ''}">
+      <div class="label">${c.label}</div>
+      <div class="value">${fmt(latest[c.key])}</div>
+      ${deltaHtml(latest[c.key], prev ? prev[c.key] : null)}
+    </div>
+  `).join('');
+}
+
+function renderFollowerChart(metrics) {
+  const ctx = document.getElementById('follower-chart');
+  if (!metrics || metrics.length === 0) {
+    ctx.parentElement.innerHTML = `<div class="empty-state">차트를 그릴 데이터가 아직 없어요.</div>`;
+    return;
+  }
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: metrics.map(m => m.date),
+      datasets: [{
+        label: '팔로워 수',
+        data: metrics.map(m => m.followers_count),
+        borderColor: '#e1306c',
+        backgroundColor: 'rgba(225, 48, 108, 0.08)',
+        borderWidth: 2,
+        pointRadius: 2,
+        fill: true,
+        tension: 0.25,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false } },
+        y: { grid: { color: '#eeece7' }, ticks: { precision: 0 } }
+      }
+    }
+  });
+}
+
+let currentPosts = [];
+let sortKey = 'reach';
+let sortDir = 'desc';
+
+const typeLabel = {
+  IMAGE: '사진',
+  VIDEO: '동영상',
+  CAROUSEL_ALBUM: '캐러셀',
+  REELS: '릴스',
+};
+
+function renderPostsTable() {
+  const wrap = document.getElementById('posts-table-wrap');
+  if (!currentPosts || currentPosts.length === 0) {
+    wrap.innerHTML = `<div class="empty-state">최근 30일 게시물이 없거나 아직 수집되지 않았어요.</div>`;
+    return;
+  }
+
+  const sorted = [...currentPosts].sort((a, b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (sortKey === 'timestamp') { av = new Date(av).getTime(); bv = new Date(bv).getTime(); }
+    if (av === null || av === undefined) av = -Infinity;
+    if (bv === null || bv === undefined) bv = -Infinity;
+    return sortDir === 'desc' ? bv - av : av - bv;
+  });
+
+  const columns = [
+    { key: 'timestamp', label: '게시일' },
+    { key: 'media_product_type', label: '종류' },
+    { key: 'like_count', label: '좋아요', num: true },
+    { key: 'comments_count', label: '댓글', num: true },
+    { key: 'reach', label: '도달', num: true },
+    { key: 'saved', label: '저장', num: true },
+    { key: 'shares', label: '공유', num: true },
+  ];
+
+  const head = columns.map(c => {
+    const active = c.key === sortKey;
+    const arrow = active ? (sortDir === 'desc' ? '▼' : '▲') : '';
+    return `<th class="${active ? 'active' : ''}" data-key="${c.key}">${c.label} <span class="arrow">${arrow}</span></th>`;
+  }).join('');
+
+  const rows = sorted.map(p => {
+    const date = new Date(p.timestamp);
+    const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+    const caption = p.caption ? p.caption.replace(/\n/g, ' ') : '(캡션 없음)';
+    return `
+      <tr>
+        <td><a class="post-caption" href="${p.permalink}" target="_blank" rel="noopener" title="${caption}">${dateStr} · ${caption.slice(0, 28)}${caption.length > 28 ? '…' : ''}</a></td>
+        <td><span class="post-type">${typeLabel[p.media_product_type] || p.media_type || '-'}</span></td>
+        <td class="num">${fmt(p.like_count)}</td>
+        <td class="num">${fmt(p.comments_count)}</td>
+        <td class="num">${fmt(p.reach)}</td>
+        <td class="num">${fmt(p.saved)}</td>
+        <td class="num">${fmt(p.shares)}</td>
+      </tr>
+    `;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table>
+      <thead><tr>${head}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+
+  wrap.querySelectorAll('th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (key === sortKey) {
+        sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+      } else {
+        sortKey = key;
+        sortDir = 'desc';
+      }
+      renderPostsTable();
+    });
+  });
+}
+
+async function init() {
+  const [metrics, posts] = await Promise.all([
+    loadJson('data/instagram-metrics.json'),
+    loadJson('data/instagram-posts.json'),
+  ]);
+
+  renderStats(metrics);
+  renderFollowerChart(metrics);
+
+  currentPosts = posts || [];
+  renderPostsTable();
+}
+
+init();
+</script>
+</body>
+</html>
