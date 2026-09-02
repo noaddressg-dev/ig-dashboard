@@ -356,6 +356,7 @@ function renderPostsTable() {
     { key: 'reach', label: '도달', num: true },
     { key: 'saved', label: '저장', num: true },
     { key: 'shares', label: '공유', num: true },
+    { key: 'follows', label: '팔로우 기여', num: true },
   ];
 
   const head = columns.map(c => {
@@ -377,6 +378,7 @@ function renderPostsTable() {
         <td class="num">${fmt(p.reach)}</td>
         <td class="num">${fmt(p.saved)}</td>
         <td class="num">${fmt(p.shares)}</td>
+        <td class="num">${p.follows === null ? '<span style="color:#b8b6ae">해당없음</span>' : fmt(p.follows)}</td>
       </tr>
     `;
   }).join('');
