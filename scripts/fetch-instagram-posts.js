@@ -52,11 +52,17 @@ async function getRecentMedia() {
 
 // 게시물 종류에 따라 사용 가능한 인사이트 지표가 달라서, 넓은 세트로 시도하고
 // 실패하면 더 작은 세트로 재시도합니다.
+// 참고: follows(팔로우 기여) 지표는 릴스에는 제공되지 않고, 사진/캐러셀(FEED)에만 제공돼요.
 async function getMediaInsights(mediaId, mediaProductType) {
   const metricSets =
     mediaProductType === "REELS"
       ? [["reach", "saved", "shares", "plays"], ["reach", "saved"], ["reach"]]
-      : [["reach", "saved", "shares"], ["reach", "saved"], ["reach"]];
+      : [
+          ["reach", "saved", "shares", "follows"],
+          ["reach", "saved", "follows"],
+          ["reach", "follows"],
+          ["reach"],
+        ];
 
   for (const metrics of metricSets) {
     try {
@@ -99,6 +105,7 @@ async function main() {
       saved: insights.saved ?? null,
       shares: insights.shares ?? null,
       plays: insights.plays ?? null,
+      follows: insights.follows ?? null,
     });
   }
 
