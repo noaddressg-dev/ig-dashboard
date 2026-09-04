@@ -8,12 +8,15 @@
     "permalink": "https://www.instagram.com/reel/Dc0j-tATUcw/",
     "like_count": 34,
     "comments_count": 1,
-    "reach": 1162,
+    "reach": 1180,
     "saved": 3,
     "shares": null,
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -31,6 +34,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 23551,
+    "ad_budget": 0,
+    "ad_period_start": "2026-09-02",
+    "ad_period_end": "2026-09-06",
     "ad_spend_currency": "KRW"
   },
   {
@@ -48,6 +54,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 24225,
+    "ad_budget": 0,
+    "ad_period_start": "2026-09-02",
+    "ad_period_end": "2026-09-06",
     "ad_spend_currency": "KRW"
   },
   {
@@ -59,12 +68,15 @@
     "permalink": "https://www.instagram.com/p/DcvS0HWl_ur/",
     "like_count": 32,
     "comments_count": 6,
-    "reach": 1560,
+    "reach": 1562,
     "saved": 1,
     "shares": 1,
     "plays": null,
     "follows": 0,
     "ad_spend": 36587,
+    "ad_budget": 0,
+    "ad_period_start": "2026-09-01",
+    "ad_period_end": "2026-09-05",
     "ad_spend_currency": "KRW"
   },
   {
@@ -82,6 +94,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 36234,
+    "ad_budget": 0,
+    "ad_period_start": "2026-09-01",
+    "ad_period_end": "2026-09-05",
     "ad_spend_currency": "KRW"
   },
   {
@@ -99,6 +114,9 @@
     "plays": null,
     "follows": 4,
     "ad_spend": 69594,
+    "ad_budget": 0,
+    "ad_period_start": "2026-09-01",
+    "ad_period_end": "2026-09-07",
     "ad_spend_currency": "KRW"
   },
   {
@@ -116,6 +134,9 @@
     "plays": null,
     "follows": 27,
     "ad_spend": 159887,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-31",
+    "ad_period_end": "2026-09-04",
     "ad_spend_currency": "KRW"
   },
   {
@@ -133,6 +154,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 139744,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-28",
+    "ad_period_end": "2026-09-01",
     "ad_spend_currency": "KRW"
   },
   {
@@ -150,6 +174,9 @@
     "plays": null,
     "follows": 11,
     "ad_spend": 208330,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-27",
+    "ad_period_end": "2026-08-31",
     "ad_spend_currency": "KRW"
   },
   {
@@ -167,6 +194,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -184,6 +214,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 133597,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-26",
+    "ad_period_end": "2026-09-08",
     "ad_spend_currency": "KRW"
   },
   {
@@ -201,6 +234,9 @@
     "plays": null,
     "follows": 9,
     "ad_spend": 697108,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-20",
+    "ad_period_end": "2026-08-26",
     "ad_spend_currency": "KRW"
   },
   {
@@ -218,6 +254,9 @@
     "plays": null,
     "follows": 122,
     "ad_spend": 208535,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-20",
+    "ad_period_end": "2026-08-26",
     "ad_spend_currency": "KRW"
   },
   {
@@ -235,6 +274,9 @@
     "plays": null,
     "follows": 1,
     "ad_spend": 139877,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-18",
+    "ad_period_end": "2026-08-23",
     "ad_spend_currency": "KRW"
   },
   {
@@ -252,6 +294,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 699892,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-21",
+    "ad_period_end": "2026-08-26",
     "ad_spend_currency": "KRW"
   },
   {
@@ -269,6 +314,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 209498,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-10",
+    "ad_period_end": "2026-08-17",
     "ad_spend_currency": "KRW"
   },
   {
@@ -286,6 +334,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 209340,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-12",
+    "ad_period_end": "2026-08-16",
     "ad_spend_currency": "KRW"
   },
   {
@@ -303,6 +354,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -320,6 +374,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -337,6 +394,9 @@
     "plays": null,
     "follows": 0,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -354,6 +414,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -371,6 +434,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 207883,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-10",
+    "ad_period_end": "2026-08-14",
     "ad_spend_currency": "KRW"
   },
   {
@@ -388,6 +454,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -405,6 +474,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 208655,
+    "ad_budget": 0,
+    "ad_period_start": "2026-08-03",
+    "ad_period_end": "2026-08-11",
     "ad_spend_currency": "KRW"
   },
   {
@@ -422,6 +494,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -439,6 +514,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   },
   {
@@ -456,6 +534,9 @@
     "plays": null,
     "follows": null,
     "ad_spend": 0,
+    "ad_budget": 0,
+    "ad_period_start": null,
+    "ad_period_end": null,
     "ad_spend_currency": "KRW"
   }
 ]
