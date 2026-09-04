@@ -94,6 +94,11 @@ async function main() {
     getCurrency(),
   ]);
 
+  // 디버그: 처음 3개 광고의 원본 adset/campaign 데이터를 로그로 출력
+  console.log("--- 디버그: 광고 원본 데이터 샘플 ---");
+  console.log(JSON.stringify(adDetails.slice(0, 3), null, 2));
+  console.log("--- 디버그 끝 ---");
+
   // 게시물(media) ID -> { spend, budgetSources: Map<고유키, {daily_budget, lifetime_budget, start, end}> }
   const perMedia = {};
 
