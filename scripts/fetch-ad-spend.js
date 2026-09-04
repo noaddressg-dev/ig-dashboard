@@ -61,10 +61,13 @@ async function getAdSpend() {
   return spendByAdId;
 }
 
-// 광고 -> (게시물 ID, 광고그룹 정보) 매핑
+// 광고 -> (게시물 ID, 광고그룹/캠페인 정보) 매핑
+// 예산은 광고그룹(adset) 또는 캠페인(campaign) 레벨 중 어디서든 설정될 수 있어서 둘 다 가져옵니다.
 async function getAdDetails() {
   const fields =
-    "id,creative{source_instagram_media_id},adset{id,daily_budget,lifetime_budget,start_time,end_time}";
+    "id,creative{source_instagram_media_id}," +
+    "adset{id,daily_budget,lifetime_budget,start_time,end_time}," +
+    "campaign{id,daily_budget,lifetime_budget,start_time,stop_time}";
   const url = `https://graph.facebook.com/${API_VERSION}/act_${AD_ACCOUNT_ID}/ads?fields=${fields}&limit=200&access_token=${ACCESS_TOKEN}`;
   return fetchAllPages(url);
 }
@@ -91,7 +94,7 @@ async function main() {
     getCurrency(),
   ]);
 
-  // 게시물(media) ID -> { spend, adsetIds: Set }
+  // 게시물(media) ID -> { spend, budgetSources: Map<고유키, {daily_budget, lifetime_budget, start, end}> }
   const perMedia = {};
 
   for (const ad of adDetails) {
@@ -99,14 +102,36 @@ async function main() {
     if (!mediaId) continue; // 오가닉 게시물을 부스트한 광고가 아님
 
     if (!perMedia[mediaId]) {
-      perMedia[mediaId] = { spend: 0, adsets: new Map() };
+      perMedia[mediaId] = { spend: 0, budgetSources: new Map() };
     }
 
     perMedia[mediaId].spend += spendByAdId[ad.id] || 0;
 
+    // 예산은 adset에 설정되어 있으면 adset을, 없으면(캠페인 예산 최적화/CBO) campaign을 사용
     const adset = ad.adset;
-    if (adset?.id && !perMedia[mediaId].adsets.has(adset.id)) {
-      perMedia[mediaId].adsets.set(adset.id, adset);
+    const campaign = ad.campaign;
+    const adsetHasBudget = adset && (adset.daily_budget || adset.lifetime_budget);
+
+    if (adsetHasBudget) {
+      const key = `adset:${adset.id}`;
+      if (!perMedia[mediaId].budgetSources.has(key)) {
+        perMedia[mediaId].budgetSources.set(key, {
+          daily_budget: adset.daily_budget,
+          lifetime_budget: adset.lifetime_budget,
+          start_time: adset.start_time,
+          end_time: adset.end_time,
+        });
+      }
+    } else if (campaign && (campaign.daily_budget || campaign.lifetime_budget)) {
+      const key = `campaign:${campaign.id}`;
+      if (!perMedia[mediaId].budgetSources.has(key)) {
+        perMedia[mediaId].budgetSources.set(key, {
+          daily_budget: campaign.daily_budget,
+          lifetime_budget: campaign.lifetime_budget,
+          start_time: campaign.start_time,
+          end_time: campaign.stop_time,
+        });
+      }
     }
   }
 
@@ -117,20 +142,20 @@ async function main() {
     let latestStop = null;
     let ongoing = false;
 
-    for (const adset of info.adsets.values()) {
-      const budgetRaw = adset.lifetime_budget ?? adset.daily_budget ?? null;
+    for (const source of info.budgetSources.values()) {
+      const budgetRaw = source.lifetime_budget ?? source.daily_budget ?? null;
       const budget = toBasicUnit(budgetRaw, currency);
       if (budget !== null) totalBudget += budget;
 
-      if (adset.start_time) {
-        const start = new Date(adset.start_time);
+      if (source.start_time) {
+        const start = new Date(source.start_time);
         if (!earliestStart || start < earliestStart) earliestStart = start;
       }
-      if (adset.end_time) {
-        const stop = new Date(adset.end_time);
+      if (source.end_time) {
+        const stop = new Date(source.end_time);
         if (!latestStop || stop > latestStop) latestStop = stop;
       } else {
-        ongoing = true; // end_time이 없으면 (주로 daily_budget) 계속 진행 중
+        ongoing = true; // 종료일이 없으면 (주로 일일예산) 계속 진행 중
       }
     }
 
