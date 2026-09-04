@@ -64,7 +64,7 @@ async function getAdSpend() {
 // 광고 -> (게시물 ID, 광고그룹 정보) 매핑
 async function getAdDetails() {
   const fields =
-    "id,creative{source_instagram_media_id},adset{id,daily_budget,lifetime_budget,start_time,stop_time}";
+    "id,creative{source_instagram_media_id},adset{id,daily_budget,lifetime_budget,start_time,end_time}";
   const url = `https://graph.facebook.com/${API_VERSION}/act_${AD_ACCOUNT_ID}/ads?fields=${fields}&limit=200&access_token=${ACCESS_TOKEN}`;
   return fetchAllPages(url);
 }
@@ -126,11 +126,11 @@ async function main() {
         const start = new Date(adset.start_time);
         if (!earliestStart || start < earliestStart) earliestStart = start;
       }
-      if (adset.stop_time) {
-        const stop = new Date(adset.stop_time);
+      if (adset.end_time) {
+        const stop = new Date(adset.end_time);
         if (!latestStop || stop > latestStop) latestStop = stop;
       } else {
-        ongoing = true; // stop_time이 없으면 (주로 daily_budget) 계속 진행 중
+        ongoing = true; // end_time이 없으면 (주로 daily_budget) 계속 진행 중
       }
     }
 
