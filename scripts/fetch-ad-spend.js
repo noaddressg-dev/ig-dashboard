@@ -181,6 +181,15 @@ async function main() {
   }
 
   const posts = JSON.parse(fs.readFileSync(POSTS_FILE, "utf-8"));
+
+  // 디버그: 게시물 ID와 광고에서 나온 media ID가 실제로 겹치는지 확인
+  console.log("--- 디버그: ID 매칭 확인 ---");
+  console.log("instagram-posts.json에 있는 게시물 ID들:", posts.map((p) => p.id));
+  console.log("광고에서 찾은 source_instagram_media_id들:", Object.keys(resultByMedia));
+  const matchedIds = posts.map((p) => p.id).filter((id) => resultByMedia[id]);
+  console.log("실제로 매칭된 ID:", matchedIds);
+  console.log("--- 디버그 끝 ---");
+
   const updated = posts.map((post) => {
     const info = resultByMedia[post.id];
     return {
