@@ -6,13 +6,15 @@
     "media_product_type": "REELS",
     "timestamp": "2026-09-03T10:10:30+0000",
     "permalink": "https://www.instagram.com/reel/Dc0j-tATUcw/",
-    "like_count": 29,
+    "like_count": 34,
     "comments_count": 1,
-    "reach": 910,
-    "saved": 1,
+    "reach": 1162,
+    "saved": 3,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18140084911517811",
@@ -21,13 +23,15 @@
     "media_product_type": "FEED",
     "timestamp": "2026-09-02T08:01:04+0000",
     "permalink": "https://www.instagram.com/p/DcxwlZHjvsF/",
-    "like_count": 20,
+    "like_count": 21,
     "comments_count": 1,
-    "reach": 917,
+    "reach": 947,
     "saved": 0,
     "shares": 1,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 23551,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18430029103176875",
@@ -38,11 +42,13 @@
     "permalink": "https://www.instagram.com/p/DcxqCHDoD_D/",
     "like_count": 35,
     "comments_count": 5,
-    "reach": 1394,
+    "reach": 1418,
     "saved": 3,
     "shares": 1,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 24225,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18422964397196608",
@@ -51,13 +57,15 @@
     "media_product_type": "FEED",
     "timestamp": "2026-09-01T09:02:27+0000",
     "permalink": "https://www.instagram.com/p/DcvS0HWl_ur/",
-    "like_count": 31,
+    "like_count": 32,
     "comments_count": 6,
-    "reach": 1543,
+    "reach": 1560,
     "saved": 1,
     "shares": 1,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 36587,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "17955278373232367",
@@ -68,11 +76,13 @@
     "permalink": "https://www.instagram.com/p/DcvSsgFmOfY/",
     "like_count": 25,
     "comments_count": 4,
-    "reach": 1093,
+    "reach": 1115,
     "saved": 0,
     "shares": 10,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 36234,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18099054110033142",
@@ -81,13 +91,15 @@
     "media_product_type": "FEED",
     "timestamp": "2026-09-01T07:00:28+0000",
     "permalink": "https://www.instagram.com/p/DcvE21AAYMo/",
-    "like_count": 125,
-    "comments_count": 7,
-    "reach": 2753,
+    "like_count": 128,
+    "comments_count": 8,
+    "reach": 2792,
     "saved": 12,
     "shares": 26,
     "plays": null,
-    "follows": 4
+    "follows": 4,
+    "ad_spend": 69594,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18076648613388478",
@@ -98,11 +110,13 @@
     "permalink": "https://www.instagram.com/p/DcshDOCG2cR/",
     "like_count": 52,
     "comments_count": 130,
-    "reach": 8689,
+    "reach": 8700,
     "saved": 30,
     "shares": 21,
     "plays": null,
-    "follows": 27
+    "follows": 27,
+    "ad_spend": 159887,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18121635241895665",
@@ -113,11 +127,13 @@
     "permalink": "https://www.instagram.com/p/DckfV7FzukQ/",
     "like_count": 22,
     "comments_count": 0,
-    "reach": 2110,
+    "reach": 2124,
     "saved": 2,
     "shares": 0,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 139744,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "17989022481031042",
@@ -128,11 +144,13 @@
     "permalink": "https://www.instagram.com/p/DciNfEzkzFf/",
     "like_count": 51,
     "comments_count": 0,
-    "reach": 9638,
+    "reach": 9646,
     "saved": 9,
     "shares": 2,
     "plays": null,
-    "follows": 11
+    "follows": 11,
+    "ad_spend": 208330,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18183824860410532",
@@ -143,11 +161,13 @@
     "permalink": "https://www.instagram.com/p/Dcf-zyUG7Pt/",
     "like_count": 81,
     "comments_count": 1,
-    "reach": 1746,
+    "reach": 1756,
     "saved": 1,
     "shares": 37,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18193327906380190",
@@ -158,11 +178,13 @@
     "permalink": "https://www.instagram.com/reel/DcfptTcTr-a/",
     "like_count": 1421,
     "comments_count": 2,
-    "reach": 5213,
+    "reach": 5216,
     "saved": 88,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 133597,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18544612951074021",
@@ -171,13 +193,15 @@
     "media_product_type": "FEED",
     "timestamp": "2026-08-21T08:34:34+0000",
     "permalink": "https://www.instagram.com/p/DcS64V0k0cM/",
-    "like_count": 112,
+    "like_count": 113,
     "comments_count": 101,
     "reach": 2634,
     "saved": 35,
     "shares": 14,
     "plays": null,
-    "follows": 9
+    "follows": 9,
+    "ad_spend": 697108,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18113660215770303",
@@ -186,13 +210,15 @@
     "media_product_type": "FEED",
     "timestamp": "2026-08-20T08:00:35+0000",
     "permalink": "https://www.instagram.com/p/DcQSMP3Cm3i/",
-    "like_count": 1043,
+    "like_count": 1042,
     "comments_count": 1207,
     "reach": 3802,
     "saved": 37,
     "shares": 139,
     "plays": null,
-    "follows": 122
+    "follows": 122,
+    "ad_spend": 208535,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18124761124705583",
@@ -207,7 +233,9 @@
     "saved": 5,
     "shares": 5,
     "plays": null,
-    "follows": 1
+    "follows": 1,
+    "ad_spend": 139877,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18127814323599690",
@@ -218,11 +246,13 @@
     "permalink": "https://www.instagram.com/reel/DcNklJUzYiz/",
     "like_count": 64,
     "comments_count": 0,
-    "reach": 2249,
+    "reach": 2252,
     "saved": 3,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 699892,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18186855535397409",
@@ -237,7 +267,9 @@
     "saved": 85,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 209498,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "17951097624246844",
@@ -252,7 +284,9 @@
     "saved": 2,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 209340,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18116335270901211",
@@ -267,7 +301,9 @@
     "saved": 1,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18013921871926342",
@@ -282,7 +318,9 @@
     "saved": 1,
     "shares": 21,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18073577417711794",
@@ -297,7 +335,9 @@
     "saved": 4,
     "shares": 17,
     "plays": null,
-    "follows": 0
+    "follows": 0,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18024390326688317",
@@ -312,7 +352,9 @@
     "saved": 0,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "17981698175878616",
@@ -327,7 +369,9 @@
     "saved": 3,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 207883,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18612902383044238",
@@ -342,7 +386,9 @@
     "saved": 0,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18103491557230281",
@@ -357,7 +403,9 @@
     "saved": 11,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 208655,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18365144482240308",
@@ -372,7 +420,9 @@
     "saved": 1,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "17978094183096705",
@@ -387,7 +437,9 @@
     "saved": 2,
     "shares": null,
     "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   },
   {
     "id": "18081901805664020",
@@ -402,21 +454,8 @@
     "saved": 2,
     "shares": null,
     "plays": null,
-    "follows": null
-  },
-  {
-    "id": "18435095050132173",
-    "caption": "어쩌면 아연 주방장도 덕후였을지도..?🤔\n\n“자신이 좋아하는 것에 당당해져 보아요”\n\n애니 <케이온!> ’미오‘의 매력에 푹 빠진 2D 덕후 ",
-    "media_type": "VIDEO",
-    "media_product_type": "REELS",
-    "timestamp": "2026-08-05T00:53:50+0000",
-    "permalink": "https://www.instagram.com/reel/Dbo5KH7zSeZ/",
-    "like_count": 24,
-    "comments_count": 0,
-    "reach": 3274,
-    "saved": 0,
-    "shares": null,
-    "plays": null,
-    "follows": null
+    "follows": null,
+    "ad_spend": 0,
+    "ad_spend_currency": "KRW"
   }
 ]
