@@ -148,6 +148,32 @@
 
   .section-head h2 { margin: 0; }
 
+  .view-toggle {
+    display: inline-flex;
+    background: #efeee9;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .view-toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .view-toggle-btn.active {
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
   .export-btn {
     display: inline-flex;
     align-items: center;
@@ -252,7 +278,13 @@
     <section>
       <div class="section-head">
         <h2>최근 30일 게시물 실적</h2>
-        <button class="export-btn" id="export-btn">⭳ 엑셀로 내보내기</button>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="view-toggle" id="view-toggle">
+            <button class="view-toggle-btn active" data-mode="simple">간단히 보기</button>
+            <button class="view-toggle-btn" data-mode="full">전체 보기</button>
+          </div>
+          <button class="export-btn" id="export-btn">⭳ 엑셀로 내보내기</button>
+        </div>
       </div>
       <div id="posts-table-wrap"></div>
     </section>
@@ -359,6 +391,7 @@ function renderFollowerChart(metrics) {
 let currentPosts = [];
 let sortKey = 'reach';
 let sortDir = 'desc';
+let viewMode = 'simple'; // 'simple' | 'full'
 
 const typeLabel = {
   IMAGE: '사진',
@@ -398,50 +431,52 @@ function renderPostsTable() {
   });
 
   const columns = [
-    { key: 'timestamp', label: '게시일', tip: '게시물을 업로드한 날짜' },
-    { key: 'media_product_type', label: '종류', tip: '사진 / 동영상 / 캐러셀 / 릴스' },
-    { key: 'like_count', label: '좋아요', num: true, tip: '게시물에 눌린 좋아요 수' },
-    { key: 'comments_count', label: '댓글', num: true, tip: '게시물에 달린 댓글 수' },
-    { key: 'reach', label: '도달', num: true, tip: '이 게시물을 본 고유 계정 수 (중복 제외)' },
-    { key: 'saved', label: '저장', num: true, tip: '게시물을 저장(북마크)한 횟수' },
-    { key: 'shares', label: '공유', num: true, tip: '게시물을 공유(DM 전송 등)한 횟수' },
-    { key: 'follows', label: '팔로우 기여', num: true, tip: '이 게시물을 보고 새로 팔로우한 사람 수 (릴스는 미지원)' },
-    { key: 'engagement_rate', label: '참여율', num: true, tip: '(좋아요+댓글+저장+공유) ÷ 도달 × 100. 반응성이 좋은 콘텐츠일수록 높음' },
-    { key: 'cpf', label: 'CPF(팔로우당)', num: true, tip: 'Cost per Follow: 광고비 ÷ 팔로우 기여. 팔로워 1명 획득에 든 광고비' },
-    { key: 'cpm', label: 'CPM(도달1000당)', num: true, tip: 'Cost per Mille: 광고비 ÷ 도달 × 1000. 1000명에게 도달하는 데 든 광고비' },
-    { key: 'ad_spend', label: '광고비', num: true, tip: '이 게시물을 부스트한 광고들의 실제 지출 합계' },
-    { key: 'ad_budget', label: '광고 예산', num: true, tip: '이 게시물을 부스트한 광고그룹(들)의 설정 예산 합계 (참고용, 실제 지출과 다를 수 있음)' },
-    { key: 'ad_period_start', label: '집행 기간', tip: '광고가 집행된 시작일 ~ 종료일' },
+    { key: 'timestamp', label: '게시일', tip: '게시물을 업로드한 날짜',
+      render: (p) => {
+        const date = new Date(p.timestamp);
+        const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+        const caption = p.caption ? p.caption.replace(/\n/g, ' ') : '(캡션 없음)';
+        return `<a class="post-caption" href="${p.permalink}" target="_blank" rel="noopener" title="${caption}">${dateStr} · ${caption.slice(0, 28)}${caption.length > 28 ? '…' : ''}</a>`;
+      } },
+    { key: 'media_product_type', label: '종류', tip: '사진 / 동영상 / 캐러셀 / 릴스',
+      render: (p) => `<span class="post-type">${typeLabel[p.media_product_type] || p.media_type || '-'}</span>` },
+    { key: 'like_count', label: '좋아요', num: true, tip: '게시물에 눌린 좋아요 수', render: (p) => fmt(p.like_count) },
+    { key: 'comments_count', label: '댓글', num: true, tip: '게시물에 달린 댓글 수', render: (p) => fmt(p.comments_count) },
+    { key: 'reach', label: '도달', num: true, tip: '이 게시물을 본 고유 계정 수 (중복 제외)', render: (p) => fmt(p.reach) },
+    { key: 'saved', label: '저장', num: true, tip: '게시물을 저장(북마크)한 횟수', render: (p) => fmt(p.saved) },
+    { key: 'shares', label: '공유', num: true, tip: '게시물을 공유(DM 전송 등)한 횟수', render: (p) => fmt(p.shares) },
+    { key: 'follows', label: '팔로우 기여', num: true, advanced: true,
+      tip: '이 게시물을 보고 새로 팔로우한 사람 수 (릴스는 미지원)',
+      render: (p) => p.follows === null ? '<span style="color:#b8b6ae">해당없음</span>' : fmt(p.follows) },
+    { key: 'engagement_rate', label: '참여율', num: true,
+      tip: '(좋아요+댓글+저장+공유) ÷ 도달 × 100. 반응성이 좋은 콘텐츠일수록 높음',
+      render: (p) => p.engagement_rate !== null ? p.engagement_rate.toFixed(1) + '%' : '<span style="color:#b8b6ae">—</span>' },
+    { key: 'cpf', label: 'CPF(팔로우당)', num: true, advanced: true,
+      tip: 'Cost per Follow: 광고비 ÷ 팔로우 기여. 팔로워 1명 획득에 든 광고비',
+      render: (p) => p.cpf !== null ? fmt(Math.round(p.cpf)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>' },
+    { key: 'cpm', label: 'CPM(도달1000당)', num: true, advanced: true,
+      tip: 'Cost per Mille: 광고비 ÷ 도달 × 1000. 1000명에게 도달하는 데 든 광고비',
+      render: (p) => p.cpm !== null ? fmt(Math.round(p.cpm)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>' },
+    { key: 'ad_spend', label: '광고비', num: true, tip: '이 게시물을 부스트한 광고들의 실제 지출 합계',
+      render: (p) => p.ad_spend ? fmt(Math.round(p.ad_spend)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">0</span>' },
+    { key: 'ad_budget', label: '광고 예산', num: true, advanced: true,
+      tip: '이 게시물을 부스트한 광고그룹(들)의 설정 예산 합계 (참고용, 실제 지출과 다를 수 있음)',
+      render: (p) => p.ad_budget ? fmt(Math.round(p.ad_budget)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>' },
+    { key: 'ad_period_start', label: '집행 기간', tip: '광고가 집행된 시작일 ~ 종료일',
+      render: (p) => p.ad_period_start ? `${p.ad_period_start} ~ ${p.ad_period_end || '진행중'}` : '<span style="color:#b8b6ae">—</span>' },
   ];
 
-  const head = columns.map(c => {
+  const visibleColumns = viewMode === 'simple' ? columns.filter(c => !c.advanced) : columns;
+
+  const head = visibleColumns.map(c => {
     const active = c.key === sortKey;
     const arrow = active ? (sortDir === 'desc' ? '▼' : '▲') : '';
     return `<th class="${active ? 'active' : ''}" data-key="${c.key}" title="${c.tip}">${c.label} <span class="arrow">${arrow}</span></th>`;
   }).join('');
 
   const rows = sorted.map(p => {
-    const date = new Date(p.timestamp);
-    const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
-    const caption = p.caption ? p.caption.replace(/\n/g, ' ') : '(캡션 없음)';
-    return `
-      <tr>
-        <td><a class="post-caption" href="${p.permalink}" target="_blank" rel="noopener" title="${caption}">${dateStr} · ${caption.slice(0, 28)}${caption.length > 28 ? '…' : ''}</a></td>
-        <td><span class="post-type">${typeLabel[p.media_product_type] || p.media_type || '-'}</span></td>
-        <td class="num">${fmt(p.like_count)}</td>
-        <td class="num">${fmt(p.comments_count)}</td>
-        <td class="num">${fmt(p.reach)}</td>
-        <td class="num">${fmt(p.saved)}</td>
-        <td class="num">${fmt(p.shares)}</td>
-        <td class="num">${p.follows === null ? '<span style="color:#b8b6ae">해당없음</span>' : fmt(p.follows)}</td>
-        <td class="num">${p.engagement_rate !== null ? p.engagement_rate.toFixed(1) + '%' : '<span style="color:#b8b6ae">—</span>'}</td>
-        <td class="num">${p.cpf !== null ? fmt(Math.round(p.cpf)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>'}</td>
-        <td class="num">${p.cpm !== null ? fmt(Math.round(p.cpm)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>'}</td>
-        <td class="num">${p.ad_spend ? fmt(Math.round(p.ad_spend)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">0</span>'}</td>
-        <td class="num">${p.ad_budget ? fmt(Math.round(p.ad_budget)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>'}</td>
-        <td>${p.ad_period_start ? `${p.ad_period_start} ~ ${p.ad_period_end || '진행중'}` : '<span style="color:#b8b6ae">—</span>'}</td>
-      </tr>
-    `;
+    const cells = visibleColumns.map(c => `<td class="${c.num ? 'num' : ''}">${c.render(p)}</td>`).join('');
+    return `<tr>${cells}</tr>`;
   }).join('');
 
   wrap.innerHTML = `
@@ -496,6 +531,14 @@ async function init() {
       `<div class="empty-state">표를 그리는 중 오류가 발생했어요: ${e.message}</div>`;
   }
 }
+
+document.getElementById('view-toggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('.view-toggle-btn');
+  if (!btn) return;
+  viewMode = btn.dataset.mode;
+  document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.toggle('active', b === btn));
+  renderPostsTable();
+});
 
 document.getElementById('export-btn').addEventListener('click', () => {
   const table = document.getElementById('posts-table');
