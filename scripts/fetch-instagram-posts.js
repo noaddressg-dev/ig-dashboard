@@ -56,8 +56,14 @@ async function getRecentMedia() {
 async function getMediaInsights(mediaId, mediaProductType) {
   const metricSets =
     mediaProductType === "REELS"
-      ? [["reach", "saved", "shares", "plays"], ["reach", "saved"], ["reach"]]
+      ? [
+          ["reach", "saved", "shares", "views"],
+          ["reach", "saved", "shares"],
+          ["reach", "saved"],
+          ["reach"],
+        ]
       : [
+          ["reach", "saved", "shares", "follows", "views"],
           ["reach", "saved", "shares", "follows"],
           ["reach", "saved", "follows"],
           ["reach", "follows"],
@@ -102,6 +108,7 @@ async function main() {
       like_count: media.like_count ?? null,
       comments_count: media.comments_count ?? null,
       reach: insights.reach ?? null,
+      views: insights.views ?? null,
       saved: insights.saved ?? null,
       shares: insights.shares ?? null,
       plays: insights.plays ?? null,
