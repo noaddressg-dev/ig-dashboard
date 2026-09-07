@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <style>
   :root {
     --ink: #14161c;
@@ -131,13 +132,43 @@
     height: 320px;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--surface);
+  .table-scroll {
+    overflow-x: auto;
     border: 1px solid var(--line);
     border-radius: 10px;
-    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .section-head h2 { margin: 0; }
+
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .export-btn:hover { border-color: var(--accent-1); }
+
+  table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
     font-size: 13.5px;
   }
 
@@ -147,7 +178,7 @@
     background: #efeee9;
     color: var(--ink-soft);
     font-weight: 500;
-    cursor: pointer;
+    cursor: help;
     user-select: none;
     white-space: nowrap;
   }
@@ -219,7 +250,10 @@
     </section>
 
     <section>
-      <h2>최근 30일 게시물 실적</h2>
+      <div class="section-head">
+        <h2>최근 30일 게시물 실적</h2>
+        <button class="export-btn" id="export-btn">⭳ 엑셀로 내보내기</button>
+      </div>
       <div id="posts-table-wrap"></div>
     </section>
 
@@ -364,26 +398,26 @@ function renderPostsTable() {
   });
 
   const columns = [
-    { key: 'timestamp', label: '게시일' },
-    { key: 'media_product_type', label: '종류' },
-    { key: 'like_count', label: '좋아요', num: true },
-    { key: 'comments_count', label: '댓글', num: true },
-    { key: 'reach', label: '도달', num: true },
-    { key: 'saved', label: '저장', num: true },
-    { key: 'shares', label: '공유', num: true },
-    { key: 'follows', label: '팔로우 기여', num: true },
-    { key: 'engagement_rate', label: '참여율', num: true },
-    { key: 'cpf', label: 'CPF(팔로우당)', num: true },
-    { key: 'cpm', label: 'CPM(도달1000당)', num: true },
-    { key: 'ad_spend', label: '광고비', num: true },
-    { key: 'ad_budget', label: '광고 예산', num: true },
-    { key: 'ad_period_start', label: '집행 기간' },
+    { key: 'timestamp', label: '게시일', tip: '게시물을 업로드한 날짜' },
+    { key: 'media_product_type', label: '종류', tip: '사진 / 동영상 / 캐러셀 / 릴스' },
+    { key: 'like_count', label: '좋아요', num: true, tip: '게시물에 눌린 좋아요 수' },
+    { key: 'comments_count', label: '댓글', num: true, tip: '게시물에 달린 댓글 수' },
+    { key: 'reach', label: '도달', num: true, tip: '이 게시물을 본 고유 계정 수 (중복 제외)' },
+    { key: 'saved', label: '저장', num: true, tip: '게시물을 저장(북마크)한 횟수' },
+    { key: 'shares', label: '공유', num: true, tip: '게시물을 공유(DM 전송 등)한 횟수' },
+    { key: 'follows', label: '팔로우 기여', num: true, tip: '이 게시물을 보고 새로 팔로우한 사람 수 (릴스는 미지원)' },
+    { key: 'engagement_rate', label: '참여율', num: true, tip: '(좋아요+댓글+저장+공유) ÷ 도달 × 100. 반응성이 좋은 콘텐츠일수록 높음' },
+    { key: 'cpf', label: 'CPF(팔로우당)', num: true, tip: 'Cost per Follow: 광고비 ÷ 팔로우 기여. 팔로워 1명 획득에 든 광고비' },
+    { key: 'cpm', label: 'CPM(도달1000당)', num: true, tip: 'Cost per Mille: 광고비 ÷ 도달 × 1000. 1000명에게 도달하는 데 든 광고비' },
+    { key: 'ad_spend', label: '광고비', num: true, tip: '이 게시물을 부스트한 광고들의 실제 지출 합계' },
+    { key: 'ad_budget', label: '광고 예산', num: true, tip: '이 게시물을 부스트한 광고그룹(들)의 설정 예산 합계 (참고용, 실제 지출과 다를 수 있음)' },
+    { key: 'ad_period_start', label: '집행 기간', tip: '광고가 집행된 시작일 ~ 종료일' },
   ];
 
   const head = columns.map(c => {
     const active = c.key === sortKey;
     const arrow = active ? (sortDir === 'desc' ? '▼' : '▲') : '';
-    return `<th class="${active ? 'active' : ''}" data-key="${c.key}">${c.label} <span class="arrow">${arrow}</span></th>`;
+    return `<th class="${active ? 'active' : ''}" data-key="${c.key}" title="${c.tip}">${c.label} <span class="arrow">${arrow}</span></th>`;
   }).join('');
 
   const rows = sorted.map(p => {
@@ -411,10 +445,12 @@ function renderPostsTable() {
   }).join('');
 
   wrap.innerHTML = `
-    <table>
-      <thead><tr>${head}</tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
+    <div class="table-scroll">
+      <table id="posts-table">
+        <thead><tr>${head}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
   `;
 
   wrap.querySelectorAll('th[data-key]').forEach(th => {
@@ -460,6 +496,17 @@ async function init() {
       `<div class="empty-state">표를 그리는 중 오류가 발생했어요: ${e.message}</div>`;
   }
 }
+
+document.getElementById('export-btn').addEventListener('click', () => {
+  const table = document.getElementById('posts-table');
+  if (!table || typeof XLSX === 'undefined') {
+    alert('내보낼 데이터가 아직 없거나, 엑셀 라이브러리 로드에 실패했어요.');
+    return;
+  }
+  const wb = XLSX.utils.table_to_book(table);
+  const today = new Date().toISOString().slice(0, 10);
+  XLSX.writeFile(wb, `instagram-posts-${today}.xlsx`);
+});
 
 init();
 </script>
