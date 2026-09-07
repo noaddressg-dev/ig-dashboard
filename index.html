@@ -443,9 +443,11 @@ function renderPostsTable() {
     { key: 'like_count', label: '좋아요', num: true, tip: '게시물에 눌린 좋아요 수', render: (p) => fmt(p.like_count) },
     { key: 'comments_count', label: '댓글', num: true, tip: '게시물에 달린 댓글 수', render: (p) => fmt(p.comments_count) },
     { key: 'reach', label: '도달', num: true, tip: '이 게시물을 본 고유 계정 수 (중복 제외)', render: (p) => fmt(p.reach) },
+    { key: 'views', label: '조회', num: true, tip: '재생/노출된 총 횟수 (같은 사람이 여러 번 보면 중복 포함)',
+      render: (p) => p.views === null || p.views === undefined ? '<span style="color:#b8b6ae">—</span>' : fmt(p.views) },
     { key: 'saved', label: '저장', num: true, tip: '게시물을 저장(북마크)한 횟수', render: (p) => fmt(p.saved) },
     { key: 'shares', label: '공유', num: true, tip: '게시물을 공유(DM 전송 등)한 횟수', render: (p) => fmt(p.shares) },
-    { key: 'follows', label: '팔로우 기여', num: true, advanced: true,
+    { key: 'follows', label: '팔로우 기여', num: true,
       tip: '이 게시물을 보고 새로 팔로우한 사람 수 (릴스는 미지원)',
       render: (p) => p.follows === null ? '<span style="color:#b8b6ae">해당없음</span>' : fmt(p.follows) },
     { key: 'engagement_rate', label: '참여율', num: true,
@@ -462,7 +464,7 @@ function renderPostsTable() {
     { key: 'ad_budget', label: '광고 예산', num: true, advanced: true,
       tip: '이 게시물을 부스트한 광고그룹(들)의 설정 예산 합계 (참고용, 실제 지출과 다를 수 있음)',
       render: (p) => p.ad_budget ? fmt(Math.round(p.ad_budget)) + ' ' + (p.ad_spend_currency || '') : '<span style="color:#b8b6ae">—</span>' },
-    { key: 'ad_period_start', label: '집행 기간', tip: '광고가 집행된 시작일 ~ 종료일',
+    { key: 'ad_period_start', label: '집행 기간', advanced: true, tip: '광고가 집행된 시작일 ~ 종료일',
       render: (p) => p.ad_period_start ? `${p.ad_period_start} ~ ${p.ad_period_end || '진행중'}` : '<span style="color:#b8b6ae">—</span>' },
   ];
 
