@@ -68,7 +68,7 @@
 
   .stat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 14px;
     margin-bottom: 40px;
   }
@@ -323,7 +323,25 @@ async function loadJson(path) {
   }
 }
 
-function renderStats(metrics) {
+function avgEngagementRate(posts) {
+  const withReach = (posts || []).filter((p) => p.reach);
+  if (withReach.length === 0) return null;
+  const rates = withReach.map((p) => {
+    const total = (p.like_count || 0) + (p.comments_count || 0) + (p.saved || 0) + (p.shares || 0);
+    return (total / p.reach) * 100;
+  });
+  return rates.reduce((a, b) => a + b, 0) / rates.length;
+}
+
+function followerDeltaHtml(curr, prev) {
+  if (prev === null || prev === undefined || curr === null || curr === undefined) return '';
+  const diff = curr - prev;
+  const cls = diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat';
+  const sign = diff > 0 ? '+' : '';
+  return `<div class="delta ${cls}">${sign}${fmt(diff)}명 (전일 대비)</div>`;
+}
+
+function renderStats(metrics, posts) {
   const grid = document.getElementById('stat-grid');
   if (!metrics || metrics.length === 0) {
     grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">
@@ -339,19 +357,31 @@ function renderStats(metrics) {
   document.getElementById('last-updated').textContent = `최근 업데이트: ${latest.date}`;
 
   const cards = [
-    { key: 'followers_count', label: '팔로워 수', hero: true },
+    {
+      key: 'followers_count', label: '팔로워 수', hero: true,
+      extraDelta: followerDeltaHtml(latest.followers_count, prev ? prev.followers_count : null),
+    },
     { key: 'reach', label: '도달 (일간)' },
     { key: 'profile_views', label: '프로필 조회수' },
     { key: 'accounts_engaged', label: '참여 계정 수' },
   ];
+
+  const avgEngagement = avgEngagementRate(posts);
 
   grid.innerHTML = cards.map(c => `
     <div class="stat-card ${c.hero ? 'hero' : ''}">
       <div class="label">${c.label}</div>
       <div class="value">${fmt(latest[c.key])}</div>
       ${deltaHtml(latest[c.key], prev ? prev[c.key] : null)}
+      ${c.extraDelta || ''}
     </div>
-  `).join('');
+  `).join('') + `
+    <div class="stat-card">
+      <div class="label">평균 참여율 (최근 30일 게시물)</div>
+      <div class="value">${avgEngagement !== null ? avgEngagement.toFixed(1) + '%' : '—'}</div>
+      <div class="delta flat">${posts && posts.length ? `${posts.length}개 게시물 기준` : '게시물 데이터 없음'}</div>
+    </div>
+  `;
 }
 
 function renderFollowerChart(metrics) {
@@ -510,8 +540,10 @@ async function init() {
     loadJson('data/instagram-posts.json'),
   ]);
 
+  const derivedPosts = withDerivedMetrics(posts || []);
+
   try {
-    renderStats(metrics);
+    renderStats(metrics, derivedPosts);
   } catch (e) {
     console.error('renderStats 오류:', e);
   }
@@ -525,7 +557,7 @@ async function init() {
   }
 
   try {
-    currentPosts = withDerivedMetrics(posts || []);
+    currentPosts = derivedPosts;
     renderPostsTable();
   } catch (e) {
     console.error('renderPostsTable 오류:', e);
