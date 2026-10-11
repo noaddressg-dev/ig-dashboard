@@ -394,5 +394,16 @@
     "profile_views": 123,
     "accounts_engaged": 191,
     "website_clicks": 12
+  },
+  {
+    "date": "2026-10-11",
+    "collected_at": "2026-10-11T00:10:26.480Z",
+    "username": "yspotlight",
+    "followers_count": 74169,
+    "media_count": 1010,
+    "reach": 39079,
+    "profile_views": 68,
+    "accounts_engaged": 117,
+    "website_clicks": 4
   }
 ]
